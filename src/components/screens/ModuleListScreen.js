@@ -1,23 +1,53 @@
-import { StyleSheet, Text } from 'react-native';
+import { LogBox, StyleSheet } from 'react-native';
 import Screen from '../layout/Screen';
+import initialModules from '../../data/modules.js';
+import ModuleList from '../entity/modules/ModuleList.js';
+import { useState } from 'react';
+import Icons from '../UI/Icons.js'
+import {Button, ButtonTray} from '../UI/Button.js'
+import RenderCount from '../UI/RenderCount.js';
 
-const  ModuleListScreen = () => {
+const  ModuleListScreen = ({navigation}) => {
   // Initialisations -----
-  // State ---------------
+  LogBox.ignoreLogs(['Non-serializable values were found in the navigation state'])
+
+
+
+
+  // State ---------------   
+  const [ modules, setModules ] = useState(initialModules);
   // Handlers ------------
-  // View ----------------
+  const handleDelete = (module) => {
+  setModules ( modules.filter((item) =>  item.ModuleID !== module.ModuleID ));
+  console.log(`Module ${module.ModuleCode} deleted`)
+  };
+
+  const handleAdd = (module) => setModules([...modules, module]);
+
+  const onDelete = (module) => {
+        handleDelete(module);
+        navigation.goBack();
+    };
+
+    const onAdd = (module) => {
+      handleAdd(module);
+      navigation.goBack();
+  };
+   
+
+  const goToViewScreen = (module) => navigation.navigate('ModuleViewScreen', { module, onDelete });
+  const goToAddScreen = () => navigation.navigate('ModuleAddScreen', {onAdd});
+
+    // View ----------------  can put after "<Screen>" <RenderCount  />
   return (
     <Screen>
-
-
-
-      <Text>List</Text>
-
-
-
+     <ButtonTray>
+      <Button label="Add" icon={<Icons.Add/>} onClick={goToAddScreen}/>
+     </ButtonTray>
+      <ModuleList modules={modules} onSelect={goToViewScreen}/>
     </Screen>
   );
-}
+};
 
 const styles = StyleSheet.create({});
 
