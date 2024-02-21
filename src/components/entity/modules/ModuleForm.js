@@ -2,7 +2,6 @@ import { useState } from "react";
 import { StyleSheet, Text, TextInput, View } from "react-native";
 import Icons from "../../UI/Icons.js";
 import Form from "../../UI/Form.js";
-import { Button, ButtonTray } from "../../UI/Button.js";
 
 const defaultModule = {
   ModuleID: null,
