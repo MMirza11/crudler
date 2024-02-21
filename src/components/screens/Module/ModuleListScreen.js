@@ -1,11 +1,11 @@
 import { LogBox, StyleSheet } from "react-native";
-import Screen from "../layout/Screen";
-import initialModules from "../../data/modules.js";
-import ModuleList from "../entity/modules/ModuleList.js";
+import Screen from "../../layout/Screen.js";
+import initialModules from "../../../data/modules.js";
+import ModuleList from "../../entity/modules/ModuleList.js";
 import { useState } from "react";
-import Icons from "../UI/Icons.js";
-import { Button, ButtonTray } from "../UI/Button.js";
-import RenderCount from "../UI/RenderCount.js";
+import Icons from "../../UI/Icons.js";
+import { Button, ButtonTray } from "../../UI/Button.js";
+import RenderCount from "../../UI/RenderCount.js";
 
 const ModuleListScreen = ({ navigation }) => {
   // Initialisations -----

@@ -1,6 +1,6 @@
 import { StyleSheet, Text, View } from "react-native";
-import Screen from "../layout/Screen";
-import ModuleView from "../entity/modules/ModuleView";
+import Screen from "../../layout/Screen";
+import ModuleView from "../../entity/modules/ModuleView";
 
 const ModuleViewScreen = ({ navigation, route }) => {
   // Initialisations -----
