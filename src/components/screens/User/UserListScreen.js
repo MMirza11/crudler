@@ -8,7 +8,7 @@ import { Button, ButtonTray } from "../../UI/Button.js";
 import API from "../../API/API.js";
 
 const UserListScreen = ({ navigation }) => {
-  // Initialisations -----
+  // Initialisations ---------------
   LogBox.ignoreLogs([
     "Non-serializable values were found in the navigation state",
   ]);
