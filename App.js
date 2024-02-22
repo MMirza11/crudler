@@ -61,22 +61,22 @@ function UserStack() {
       <Stack.Screen
         name="UserListScreen"
         component={UserListScreen}
-        options={{ title: "User Modules" }}
+        options={{ title: "List User" }}
       />
       <Stack.Screen
         name="UserAddScreen"
         component={UserAddScreen}
-        options={{ title: "User Module" }}
+        options={{ title: "Add User" }}
       />
       <Stack.Screen
         name="UserViewScreen"
         component={UserViewScreen}
-        options={{ title: "User Module" }}
+        options={{ title: "View User" }}
       />
       <Stack.Screen
         name="UserModifyScreen"
         component={UserModifyScreen}
-        options={{ title: "User Module" }}
+        options={{ title: "Modify User" }}
       />
     </Stack.Navigator>
   );
