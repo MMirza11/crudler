@@ -7,31 +7,32 @@ import Icons from "../../UI/Icons.js";
 // State ---------------
 // Handlers ------------
 // View ----------------
-const ModuleView = ({ module, onDelete, onModify }) => {
-  const handleDelete = () => onDelete(module);
+const UserView = ({ user, onDelete, onModify }) => {
+  const handleDelete = () => onDelete(user);
 
   const requestDelete = () =>
     Alert.alert(
       "Delete warning",
-      `Are you sure that you want to delete ${module.Modulecode} ${module.ModuleName}`,
+      `Are you sure that you want to delete ${user.UserFirstname} ${user.UserLastname}`,
       [{ text: "Cancel" }, { text: "Delete", onPress: handleDelete }]
     );
 
   return (
     <View style={styles.container}>
       <FullWidthImage
-        source={{ uri: module.ModuleImage }}
+        source={{ uri: user.UserImageURL }}
         style={styles.image}
       />
 
       <View style={styles.infoTray}>
-        <Text style={styles.boldText}>
-          {module.ModuleCode} {module.ModuleName}
-        </Text>
-        <Text style={styles.text}>Level {module.ModuleLevel}</Text>
+        <Text style={styles.boldText}>User ID: {user.UserID}</Text>
         <Text style={styles.text}>
-          {module.ModuleLeaderName}
-          <Text style={styles.dimText}>(Module Leader)</Text>
+          User Name: {user.UserFirstname} {user.UserLastname}{" "}
+        </Text>
+        <Text style={styles.text}>User Type: {user.UserUsertypeName}</Text>
+        <Text style={styles.text}>
+          User Email: {user.UserEmail}
+          <Text style={styles.dimText}></Text>
         </Text>
       </View>
 
@@ -41,6 +42,7 @@ const ModuleView = ({ module, onDelete, onModify }) => {
           icon={<Icons.Delete />}
           label="Delete"
           onClick={requestDelete}
+          styleButton={{ backgroundColor: "red" }}
         />
       </ButtonTray>
     </View>
@@ -69,4 +71,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default ModuleView;
+export default UserView;

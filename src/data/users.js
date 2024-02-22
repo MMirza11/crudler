@@ -1,4 +1,4 @@
-[
+const users = [
   {
     UserID: 820,
     UserFirstname: "Graeme",
@@ -80,3 +80,5 @@
     UserYear: "2022-23",
   },
 ];
+
+export default users;

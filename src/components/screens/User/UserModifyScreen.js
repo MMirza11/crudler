@@ -1,18 +1,22 @@
-import { StyleSheet, Text } from "react-native";
+import { LogBox, StyleSheet, Text } from "react-native";
 import Screen from "../../layout/Screen.js";
-import ModuleForm from "../../entity/modules/ModuleForm.js";
+import UserForm from "../../entity/users/UserForm.js";
 
-const ModuleModifyScreen = ({ navigation, route }) => {
+const UserModifyScreen = ({ navigation, route }) => {
   // Initialisations -----
-  const { module, onModify } = route.params;
+  const { user, onModify } = route.params;
+  LogBox.ignoreLogs([
+    "Failed prop type: Invalid prop `value` of type `number` supplied to `TextInput`, expected `string`.",
+  ]);
   // State ---------------
+
   // Handlers ------------
   const handleCancel = navigation.goBack;
   // View ----------------
   return (
     <Screen>
-      <ModuleForm
-        originalModule={module}
+      <UserForm
+        originalUser={user}
         onSubmit={onModify}
         onCancel={handleCancel}
       />
@@ -22,4 +26,4 @@ const ModuleModifyScreen = ({ navigation, route }) => {
 
 const styles = StyleSheet.create({});
 
-export default ModuleModifyScreen;
+export default UserModifyScreen;

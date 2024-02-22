@@ -1,52 +1,65 @@
-import { LogBox, StyleSheet } from "react-native";
+import { LogBox, StyleSheet, Text } from "react-native";
 import Screen from "../../layout/Screen.js";
-import initialModules from "../../../data/modules.js";
-import ModuleList from "../../entity/modules/ModuleList.js";
-import { useState } from "react";
+import UserList from "../../entity/users/UserList.js";
+import { useState, useEffect } from "react";
 import Icons from "../../UI/Icons.js";
 import { Button, ButtonTray } from "../../UI/Button.js";
 //import RenderCount from "../../UI/RenderCount.js";
+import API from "../../API/API.js";
 
-const ModuleListScreen = ({ navigation }) => {
+const UserListScreen = ({ navigation }) => {
   // Initialisations -----
   LogBox.ignoreLogs([
     "Non-serializable values were found in the navigation state",
   ]);
 
+  const usersEndPoint = "https://softwarehub.uk/unibase/api/users";
+
   // State ---------------
-  const [modules, setModules] = useState(initialModules);
+  const [users, setUsers] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const loadUsers = async (endpoint) => {
+    const response = await API.get(endpoint);
+    setIsLoading(false);
+    if (response.isSuccess) {
+      setUsers(response.result);
+    }
+  };
+  useEffect(() => {
+    loadUsers(usersEndPoint);
+  }, []);
   // Handlers ------------
-  const handleDelete = (module) => {
-    setModules(modules.filter((item) => item.ModuleID !== module.ModuleID));
-    console.log(`Module ${module.ModuleCode} deleted`);
+  const handleDelete = (user) => {
+    setUsers(users.filter((item) => item.UserID !== user.UserID));
+    console.log(`User ${user.UserID} deleted`);
   };
 
-  const handleAdd = (module) => setModules([...modules, module]);
+  const handleAdd = (user) => setUsers([...users, user]);
 
-  const handleModify = (updatedModule) =>
-    setModules(
-      modules.map((module) =>
-        module.ModuleID === updatedModule.ModuleID ? updatedModule : module
+  const handleModify = (updatedUser) =>
+    setUsers(
+      users.map((user) =>
+        user.UserID === updatedUser.UserID ? updatedUser : user
       )
     );
 
-  const onDelete = (module) => {
-    handleDelete(module);
+  const onDelete = (user) => {
+    handleDelete(user);
     navigation.goBack();
   };
 
-  const onAdd = (module) => {
-    handleAdd(module);
+  const onAdd = (user) => {
+    handleAdd(user);
     navigation.goBack();
   };
-  const onModify = (module) => {
-    handleModify(module);
-    navigation.navigate("ModuleListScreen");
+  const onModify = (user) => {
+    handleModify(user);
+    navigation.navigate("UserListScreen");
   };
 
-  const goToViewScreen = (module) =>
-    navigation.navigate("ModuleViewScreen", { module, onDelete, onModify });
-  const goToAddScreen = () => navigation.navigate("ModuleAddScreen", { onAdd });
+  const goToViewScreen = (user) =>
+    navigation.navigate("UserViewScreen", { user, onDelete, onModify });
+  const goToAddScreen = () => navigation.navigate("UserAddScreen", { onAdd });
 
   // View ----------------  can put after "<Screen>" <RenderCount  />
   return (
@@ -54,11 +67,12 @@ const ModuleListScreen = ({ navigation }) => {
       <ButtonTray>
         <Button label="Add" icon={<Icons.Add />} onClick={goToAddScreen} />
       </ButtonTray>
-      <ModuleList modules={modules} onSelect={goToViewScreen} />
+      {isLoading && <Text>Loading records...</Text>}
+      <UserList users={users} onSelect={goToViewScreen} />
     </Screen>
   );
 };
 
 const styles = StyleSheet.create({});
 
-export default ModuleListScreen;
+export default UserListScreen;

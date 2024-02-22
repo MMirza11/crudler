@@ -1,86 +1,100 @@
 import { useState } from "react";
-import { StyleSheet, Text, TextInput, View } from "react-native";
+
+import {
+  StyleSheet,
+  KeyboardAvoidingView,
+  Platform,
+  ScrollView,
+} from "react-native";
+
 import Icons from "../../UI/Icons.js";
 import Form from "../../UI/Form.js";
 
-const defaultModule = {
-  ModuleID: null,
-  ModuleCode: null,
-  ModuleName: null,
-  ModuleLevel: null,
-  ModuleLeaderID: null,
-  ModuleLeaderName: null,
-  ModuleImage: null,
+const defaultUser = {
+  UserID: null,
+  UserFirstname: null,
+  UserLastname: null,
+  UserEmail: null,
+  UserImageURL: null,
+  UserUsertypeName: null,
+  UserYear: null,
 };
 
-const ModuleForm = ({ originalModule, onSubmit, onCancel }) => {
+const UserForm = ({ originalUser, onSubmit, onCancel }) => {
   // Initialisations -----
-  defaultModule.ModuleID = Math.floor(100000 + Math.random() * 900000);
-  defaultModule.ModuleImage =
-    "https://images.freeimages.com/images/small-previews/cf5/cellphone-1313194.jpg";
-
-  const levels = [
-    { value: 3, label: "3 (Foundation)" },
-    { value: 4, label: "4 (First Year)" },
-    { value: 5, label: "5 (Second Year)" },
-    { value: 6, label: "6 (Final year)" },
-    { value: 7, label: "7 (Masters)" },
-  ];
+  defaultUser.UserID = Math.floor(100000 + Math.random() * 900000);
+  defaultUser.UserImageURL =
+    "https://www.twst.com/wp-content/uploads/2019/01/toby-loftin.jpg";
 
   // State ---------------
-  const [module, setModule] = useState(originalModule || defaultModule);
+  const [user, setUser] = useState(originalUser || defaultUser);
 
   // Handlers ------------
-  const handleChange = (field, value) =>
-    setModule({ ...module, [field]: value });
-  const handleSubmit = () => onSubmit(module);
+  const handleChange = (field, value) => setUser({ ...user, [field]: value });
+  const handleSubmit = () => onSubmit(user);
 
   // View ----------------
-  const submitLabel = originalModule ? "Modify" : "Add";
-  const submitIcon = originalModule ? <Icons.Edit /> : <Icons.Add />;
+  const submitLabel = originalUser ? "Modify" : "Add";
+  const submitIcon = originalUser ? <Icons.Edit /> : <Icons.Add />;
 
   return (
-    <Form
-      onSubmit={handleSubmit}
-      onCancel={onCancel}
-      submitLabel={submitLabel}
-      submitIcon={submitIcon}
+    <KeyboardAvoidingView
+      style={{ flex: 1 }}
+      behavior={Platform.OS === "ios" ? "padding" : null}
+      keyboardVerticalOffset={Platform.OS === "ios" ? 64 : 0}
     >
-      <Form.InputText
-        label="Module Code"
-        value={module.ModuleCode}
-        onChange={(value) => handleChange("ModuleCode", value)}
-      />
+      <ScrollView>
+        <Form
+          onSubmit={handleSubmit}
+          onCancel={onCancel}
+          submitLabel={submitLabel}
+          submitIcon={submitIcon}
+        >
+          <Form.InputText
+            label="User Firstname"
+            value={user.UserFirstname}
+            onChange={(value) => handleChange("UserFirstname", value)}
+          />
 
-      <Form.InputText
-        label="Module Name"
-        value={module.ModuleName}
-        onChange={(value) => handleChange("ModuleName", value)}
-      />
+          <Form.InputText
+            label="User Lastname"
+            value={user.UserLastname}
+            onChange={(value) => handleChange("UserLastname", value)}
+          />
 
-      <Form.InputSelect
-        label="Module Level"
-        prompt="Select Module Level ..."
-        options={levels}
-        value={module.ModuleLevel}
-        onChange={(value) => handleChange("ModuleLevel", value)}
-      />
+          <Form.InputText
+            label="User Image URL"
+            value={user.UserImageURL}
+            onChange={(value) => handleChange("UserImageURL", value)}
+          />
 
-      <Form.InputText
-        label="Module Leader"
-        value={module.ModuleLeaderName}
-        onChange={(value) => handleChange("ModuleLeaderName", value)}
-      />
+          <Form.InputSelect
+            label="User Type"
+            prompt="Select User type"
+            options={[
+              { value: "Student", label: "Student" },
+              { value: "Staff", label: "Staff" },
+            ]}
+            value={user.UserUsertypeName}
+            onChange={(value) => handleChange("UserUsertypeName", value)}
+          />
 
-      <Form.InputText
-        label="Module Image URL"
-        value={module.ModuleImage}
-        onChange={(value) => handleChange("ModuleImage", value)}
-      />
-    </Form>
+          <Form.InputText
+            label="User Year"
+            value={user.UserYear}
+            onChange={(value) => handleChange("UserYear", value)}
+          />
+          <Form.InputText
+            label="User Emial"
+            value={user.UserEmail}
+            onChange={(value) => handleChange("UserEmail", value)}
+          />
+        </Form>
+      </ScrollView>
+    </KeyboardAvoidingView>
   );
 };
 
 const styles = StyleSheet.create({});
 
-export default ModuleForm;
+export default UserForm;

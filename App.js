@@ -19,8 +19,9 @@ function ModuleStack() {
     <Stack.Navigator
       initialRouteName="ModuleListScreen"
       screenOptions={{
-        headerStyle: { backgroundColor: "black" },
-        headerTintColor: "white",
+        headerStyle: { backgroundColor: "white" },
+        headerTintColor: "black",
+        headerTitleAlign: "left",
       }}
     >
       <Stack.Screen
@@ -52,8 +53,9 @@ function UserStack() {
     <Stack.Navigator
       initialRouteName="UserListScreen"
       screenOptions={{
-        headerStyle: { backgroundColor: "black" },
-        headerTintColor: "white",
+        headerStyle: { backgroundColor: "white" },
+        headerTintColor: "black",
+        headerTitleAlign: "left",
       }}
     >
       <Stack.Screen
