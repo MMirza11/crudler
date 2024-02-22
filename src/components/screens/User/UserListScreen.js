@@ -18,6 +18,7 @@ const UserListScreen = ({ navigation }) => {
   // State ---------------
   const [users, setUsers] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+
   const loadUsers = async (endpoint) => {
     const response = await API.get(endpoint);
     setIsLoading(false);

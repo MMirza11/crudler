@@ -36,7 +36,12 @@ const ModuleView = ({ module, onDelete, onModify }) => {
       </View>
 
       <ButtonTray>
-        <Button icon={<Icons.Edit />} label="Modify" onClick={onModify} />
+        <Button
+          icon={<Icons.Edit />}
+          label="Modify"
+          onClick={onModify}
+          styleButton={{ backgroundColor: "green", marginRight: 10 }}
+        />
         <Button
           icon={<Icons.Delete />}
           label="Delete"

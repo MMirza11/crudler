@@ -37,7 +37,12 @@ const UserView = ({ user, onDelete, onModify }) => {
       </View>
 
       <ButtonTray>
-        <Button icon={<Icons.Edit />} label="Modify" onClick={onModify} />
+        <Button
+          styleButton={{ backgroundColor: "green", marginRight: 10 }}
+          icon={<Icons.Edit />}
+          label="Modify"
+          onClick={onModify}
+        />
         <Button
           icon={<Icons.Delete />}
           label="Delete"
